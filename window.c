@@ -58,6 +58,11 @@ void set_active(struct Swindow* window, struct Swindow** tail){
     *w->animation_data = w->sx/2 - 15/2;
 }
 
+void set_active_hard(struct Swindow* window){
+    assert(window != NULL);
+    active_window = window;
+}
+
 static void select_animation (struct Swindow* win){
     const uint8_t fallof[] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 7, 6, 5, 4, 3, 2, 1, 0};
 
@@ -144,7 +149,7 @@ void put_all (struct Swindow* head, Tarr arr){
     assert(head);
     struct Swindow* tmp = head;
     while (tmp != NULL){
-        head->put((struct Swindow*)tmp, arr);
+        if (tmp->vis) head->put((struct Swindow*)tmp, arr);
         tmp = tmp->next;
     }
 }
@@ -180,6 +185,7 @@ struct Swindow* window_create (const char *title, uint32_t sx, uint32_t sy, void
     memset(ret->overlay, C_NAC, sizeof(ret->overlay));
     ret->animation_data = malloc(10*sizeof(uint8_t));
     memset(ret->animation_data, 0, 10*sizeof(uint8_t));
+    ret->vis = true;
     ret->animation = 0x0;
     ret->sx = sx;
     ret->sy = sy;
@@ -200,6 +206,7 @@ struct Swindow* window_create (const char *title, uint32_t sx, uint32_t sy, void
     ret->put_all = put_all;
     ret->add_by_head = add_by_head;
     ret->set_active = set_active;
+    ret->set_active_hard = set_active_hard;
     ret->program = program;
 
     active_window = ret;

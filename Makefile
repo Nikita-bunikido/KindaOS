@@ -1,9 +1,18 @@
+#kindaOS
 CC=gcc
 CFLAGS=-O3 -std=c11 -g
-SRC=main.c window.c
+PROJ=kernel
+SRC=window.o kindaText.o taskbar.o main.c
 
+default: $(PROJ)
 
-default: main
+%.o: %.c
+	$(CC) $(CFLAGS) -c $^
 
-main: $(SRC)
-	$(CC) $(CFLAGS) $^ -o kernel
+$(PROJ): $(SRC)
+	$(CC) $(CFLAGS) -o $@ $^
+
+clean: cleanO
+	del *.exe
+cleanO:
+	del *.o

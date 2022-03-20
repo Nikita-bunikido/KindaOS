@@ -1,4 +1,5 @@
-#pragma     once
+#ifndef _HEADERH_
+#define _HEADERH_
 
 #define RES_H   27
 #define RES_W   70
@@ -18,6 +19,14 @@
 #define UI_DELTAUP    (unsigned char)0xC2U
 #define UI_DELTADOWN  (unsigned char)0xC1U
 
+#define KEY_ENTER       (int)0xD
+#define KEY_BACKSPACE   (int)8
+#define KEY_SHIFT       (int)0x10
+
 #define in_area(x,l,r) ((x)>=(l) && (x)<=(r))
 
 typedef unsigned char Tarr[RES_H][RES_W+1];
+
+extern bool keys[];
+
+#endif
