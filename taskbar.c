@@ -76,8 +76,13 @@ void taskbar_put (Tarr * const out){
 
 void taskbar_unwrap(void){
     if(cursor.y < RES_H-taskbar.height || !taskbar.sp) return;
-    taskbar.stack[taskbar.ss]->vis = true;
-    for (size_t i = taskbar.ss; i < taskbar.sp-1; i++)
-        taskbar.stack[i] = taskbar.stack[i+1];
-    --taskbar.sp;
+    
+    if (was_unwrap == false && key_down(' ')){
+        taskbar.stack[taskbar.ss]->vis = true;
+        for (size_t i = taskbar.ss; i < taskbar.sp-1; i++)
+            taskbar.stack[i] = taskbar.stack[i+1];
+        --taskbar.sp;
+        was_unwrap = true;
+    } else if (!key_down(' '))
+        was_unwrap = false;
 }

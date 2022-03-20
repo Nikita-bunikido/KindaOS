@@ -209,8 +209,7 @@ void update(struct Swindow* head, struct Swindow** tail){
         keys[(int)' '] = false;
 
     /* taskbar unwrap */
-    if (key_down(' '))
-        taskbar_unwrap();
+    taskbar_unwrap();
 }
 
 static void draw_id(Twindow* head){
